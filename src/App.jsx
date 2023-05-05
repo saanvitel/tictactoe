@@ -63,16 +63,34 @@ function Board({xIsNext, squares, handlePlay}) { // takes these props
           }
         })}
       </div>
-      {/* <div className="board-row">
-        <Square value={squares[3]} onSquareClick={() => handleClick(3)} />
-        <Square value={squares[4]} onSquareClick={() => handleClick(4)} />
-        <Square value={squares[5]} onSquareClick={() => handleClick(5)} />
+      <div className="board-row">
+          {squares.map((element, index) => {
+          if(index < 3 || index > 5) {
+            return
+          }
+
+          console.log("loaf index",index)
+          if (winner.includes(index)) {
+            return <Square winOutcome={true} value={squares[index]} handleClick={() => handleClick(index)} />
+          } else {
+            return <Square winOutcome={false} value={squares[index]} handleClick={() => handleClick(index)} />
+          }
+        })}
       </div>
       <div className="board-row">
-        <Square value={squares[6]} onSquareClick={() => handleClick(6)} />
-        <Square value={squares[7]} onSquareClick={() => handleClick(7)} />
-        <Square value={squares[8]} onSquareClick={() => handleClick(8)} />
-      </div> */}
+      {squares.map((element, index) => {
+          if(index < 6 || index > 8) {
+            return
+          }
+
+          console.log("loaf index",index)
+          if (winner.includes(index)) {
+            return <Square winOutcome={true} value={squares[index]} handleClick={() => handleClick(index)} />
+          } else {
+            return <Square winOutcome={false} value={squares[index]} handleClick={() => handleClick(index)} />
+          }
+        })}
+      </div>
     </>
   );
 }
