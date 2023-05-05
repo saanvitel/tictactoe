@@ -31,7 +31,7 @@ function Board({xIsNext, squares, handlePlay}) { // takes these props
 
   const winner = calculateWinner(squares);// calculate winner squares sees if function has returned -> game is done
   let status;
-  if (winner) {
+  if (winner.length > 0) {
     let winnerLetter;
     winnerLetter = squares[winner[0]]
     status = 'Winner: ' + winnerLetter;
