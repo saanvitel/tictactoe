@@ -1,28 +1,32 @@
 import { useState } from 'react';
 
-function Square({value, onSquareClick, winOutcome}) {
+function Square({value, handleClick, winOutcome}) {
   const squareClass = winOutcome ? "winsquare" : "square";
   return (
-    <button className={squareClass} onClick={onSquareClick}>
+    <button className={squareClass} onClick={handleClick}>
       {value}
     </button>
   );
 }
 
-function Board({xIsNext, squares, onPlay}) { // takes these props
+function Board({xIsNext, squares, handlePlay}) { // takes these props
   // squares are how the board looks right now
-
+  console.log("loaf", squares)
   function handleClick(i) {
-    if (calculateWinner(squares) || squares[i]) {
+    console.log('loaf handleClick')
+    if (calculateWinner(squares).length > 0 || squares[i]) {
+      console.log("loaf calculateWinner")
       return;
     }
     const nextSquares = squares.slice();
     if (xIsNext) {
+      console.log("loaf isNext X")
       nextSquares[i] = 'X';
     } else {
+      console.log("loaf isNext O")
       nextSquares[i] = 'O';
     }
-    onPlay(nextSquares);
+    handlePlay(nextSquares);
   }
 
   const winner = calculateWinner(squares);// calculate winner squares sees if function has returned -> game is done
@@ -40,26 +44,35 @@ function Board({xIsNext, squares, onPlay}) { // takes these props
   // squares is the array of "x" and null?
   // winner is the array of square indices
 
-  
+
 
   return (
     <>
       <div className="status">{status}</div>
       <div className="board-row">
-        <Square winOutcome={false} value={squares[0]} onSquareClick={() => handleClick(0)} />
-        <Square winOutcome={false} value={squares[1]} onSquareClick={() => handleClick(1)} />
-        <Square winOutcome={false} value={squares[2]} onSquareClick={() => handleClick(2)} />
+        {squares.map((element, index) => {
+          if(index > 2) {
+            return
+          }
+
+          console.log("loaf index",index)
+          if (winner.includes(index)) {
+            return <Square winOutcome={true} value={squares[index]} handleClick={() => handleClick(index)} />
+          } else {
+            return <Square winOutcome={false} value={squares[index]} handleClick={() => handleClick(index)} />
+          }
+        })}
+      </div>
+      {/* <div className="board-row">
+        <Square value={squares[3]} onSquareClick={() => handleClick(3)} />
+        <Square value={squares[4]} onSquareClick={() => handleClick(4)} />
+        <Square value={squares[5]} onSquareClick={() => handleClick(5)} />
       </div>
       <div className="board-row">
-        <Square winOutcome={false} value={squares[3]} onSquareClick={() => handleClick(3)} />
-        <Square winOutcome={false} value={squares[4]} onSquareClick={() => handleClick(4)} />
-        <Square winOutcome={false} value={squares[5]} onSquareClick={() => handleClick(5)} />
-      </div>
-      <div className="board-row">
-        <Square winOutcome={false} value={squares[6]} onSquareClick={() => handleClick(6)} />
-        <Square winOutcome={false} value={squares[7]} onSquareClick={() => handleClick(7)} />
-        <Square winOutcome={false} value={squares[8]} onSquareClick={() => handleClick(8)} />
-      </div>
+        <Square value={squares[6]} onSquareClick={() => handleClick(6)} />
+        <Square value={squares[7]} onSquareClick={() => handleClick(7)} />
+        <Square value={squares[8]} onSquareClick={() => handleClick(8)} />
+      </div> */}
     </>
   );
 }
@@ -97,7 +110,7 @@ export default function Game(){
   return (
     <div className="game">
       <div className="game-board">
-        <Board xIsNext={xIsNext} squares={currentSquares} onPlay={handlePlay}/>
+        <Board xIsNext={xIsNext} squares={currentSquares} handlePlay={handlePlay}/>
       </div>
       <div className="game-info">
         <ol>{moves}</ol>
@@ -124,5 +137,5 @@ function calculateWinner(squares) {
       return [a, b, c];
     }
   }
-  return null;
+  return [];
 }
