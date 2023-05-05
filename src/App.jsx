@@ -11,6 +11,7 @@ function Square({value, onSquareClick, winOutcome}) {
 
 function Board({xIsNext, squares, onPlay}) { // takes these props
   // squares are how the board looks right now
+
   function handleClick(i) {
     if (calculateWinner(squares) || squares[i]) {
       return;
@@ -26,9 +27,7 @@ function Board({xIsNext, squares, onPlay}) { // takes these props
 
   const winner = calculateWinner(squares);// calculate winner squares sees if function has returned -> game is done
   let status;
-  let outcomeWin = false;
   if (winner) {
-    outcomeWin = true;
     let winnerLetter;
     winnerLetter = squares[winner[0]]
     status = 'Winner: ' + winnerLetter;
