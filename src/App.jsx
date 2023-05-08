@@ -112,14 +112,15 @@ export default function Game(){
           <Board xIsNext={xIsNext} squares={currentSquares} handlePlay={handlePlay}/>
         </div>
       <div className="game-info">
-      <button onClick={() => jumpTo(0)}>Restart Game</button> <br />
-      <div>
-        <button disabled={0 < (currentMove) ? false : true} onClick={() => jumpTo(currentMove -1)}>Go Back</button>
+        <button onClick={() => {
+          setCurrentMove(0); 
+          setHistory([Array(9).fill(null)])}
+        }>Restart Game</button> <br />
+        <button style={{margin: 10}}disabled={0 < (currentMove) ? false : true} onClick={() => jumpTo(currentMove -1)}>Go Back</button>
         <button disabled={history.length >= (currentMove + 2) ? false : true} onClick={() => jumpTo(currentMove + 1)}>Go Forward</button>
       </div>
-  </div>
     </div>
-    
+    <Waffle />
   </>
   );
 }
@@ -143,4 +144,9 @@ function calculateWinner(squares) {
     }
   }
   return [];
+}
+
+function Waffle() {
+  <div className="waffle">
+  </div>
 }
