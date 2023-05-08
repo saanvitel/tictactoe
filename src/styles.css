@@ -11,8 +11,9 @@ body {
 }
 
 h1 {
-  margin-top: 0;
-  font-size: 22px;
+  font-size: 50px;
+  position: absolute;
+  bottom: 620px;
 }
 
 h2 {
@@ -59,8 +60,8 @@ body {
 }
 
 .square {
-  background: #fff;
-  border: 1px solid #999;
+  background: #f3d9b3;
+  border: 3px solid #e7b56a;
   float: left;
   font-size: 90px;
   font-weight: bold;
@@ -80,8 +81,10 @@ body {
 }
 
 .status {
-  margin-bottom: 10px;
+ text-align: center;
+ margin-bottom: 10px;
 }
+
 .game {
   display: flex;
   flex-direction: row;
@@ -112,6 +115,7 @@ body {
   align-items: center;
   height: 100vh;
   flex-direction: column;
+  gap: 20px;
 }
 
 #gameboard-border {
@@ -127,7 +131,24 @@ body {
 
 
 .waffle {
-  width: 130px;
-  height: 130px;
-  background: burlywood;
+  width: 400px;
+  height: 400px;
+  background: #f3d9b3;
+  top: 235px;
+  position: absolute;
+  border-radius: 15px;
+  border: 1px solid #e7b56a;
+}
+
+.waffle-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
+
+.game-board{
+  z-index: 1;
+  margin: 10px;
+  border-radius: 10px;
 }

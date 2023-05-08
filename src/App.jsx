@@ -17,9 +17,9 @@ function Board({xIsNext, squares, handlePlay}) { // takes these props
     }
     const nextSquares = squares.slice();
     if (xIsNext) {
-      nextSquares[i] = '🍌';
+      nextSquares[i] = '🍓';
     } else {
-      nextSquares[i] = '🍫';
+      nextSquares[i] = '🫐';
     }
     handlePlay(nextSquares);
   }
@@ -31,7 +31,7 @@ function Board({xIsNext, squares, handlePlay}) { // takes these props
     winnerLetter = squares[winner[0]]
     status = 'Winner: ' + winnerLetter;
   } else {
-    status = 'Next player: ' + (xIsNext ? '🍌' : '🍫');
+    status = (xIsNext ? '🍓' : '🫐') + " TURN";
   }
 
   // squares is the array of "x" and null?
@@ -41,7 +41,7 @@ function Board({xIsNext, squares, handlePlay}) { // takes these props
 
   return (
     <>
-      <div className="status">{status}</div>
+      <h3 className="status">{status}</h3> <br />
       <div className="board-row">
         {squares.map((element, index) => {
           if(index > 2) {
@@ -107,21 +107,25 @@ export default function Game(){
 
   return (
     <>
-    <div className="game">
-        <div className="game-board">
-          <Board xIsNext={xIsNext} squares={currentSquares} handlePlay={handlePlay}/>
+      <div className="game">
+      <h1>🧇 waffle tictactoe 🧇</h1>
+          <div className="game-board">
+            <Board xIsNext={xIsNext} squares={currentSquares} handlePlay={handlePlay}/>
+          </div>
+        <div className="game-info">
+          <button onClick={() => {
+            setCurrentMove(0); 
+            setHistory([Array(9).fill(null)])}
+          }>Restart Game</button> <br />
+          <button disabled={0 < (currentMove) ? false : true} onClick={() => jumpTo(currentMove -1)}>Go Back</button>
+          <button disabled={history.length >= (currentMove + 2) ? false : true} onClick={() => jumpTo(currentMove + 1)}>Go Forward</button>
         </div>
-      <div className="game-info">
-        <button onClick={() => {
-          setCurrentMove(0); 
-          setHistory([Array(9).fill(null)])}
-        }>Restart Game</button> <br />
-        <button style={{margin: 10}}disabled={0 < (currentMove) ? false : true} onClick={() => jumpTo(currentMove -1)}>Go Back</button>
-        <button disabled={history.length >= (currentMove + 2) ? false : true} onClick={() => jumpTo(currentMove + 1)}>Go Forward</button>
+        <div className="waffle"></div>
       </div>
-    </div>
-    <Waffle />
-  </>
+      {/* <div className="waffle-container">
+        <div className="waffle"></div>
+      </div> */}
+    </>
   );
 }
 
