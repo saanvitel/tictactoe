@@ -134,7 +134,7 @@ body {
   width: 400px;
   height: 400px;
   background: #f3d9b3;
-  top: 235px;
+  top: 220px;
   position: absolute;
   border-radius: 15px;
   border: 1px solid #e7b56a;
@@ -150,5 +150,14 @@ body {
 .game-board{
   z-index: 1;
   margin: 10px;
+  border-radius: 10px;
+}
+
+button {
+  margin-right: 20px;
+  margin-top: 10px;
+  width: 100px;
+  height: 40px;
+  background: #ece6ff;
   border-radius: 10px;
 }
