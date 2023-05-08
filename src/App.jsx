@@ -11,20 +11,15 @@ function Square({value, handleClick, winOutcome}) {
 
 function Board({xIsNext, squares, handlePlay}) { // takes these props
   // squares are how the board looks right now
-  console.log("loaf", squares)
   function handleClick(i) {
-    console.log('loaf handleClick')
     if (calculateWinner(squares).length > 0 || squares[i]) {
-      console.log("loaf calculateWinner")
       return;
     }
     const nextSquares = squares.slice();
     if (xIsNext) {
-      console.log("loaf isNext X")
-      nextSquares[i] = 'X';
+      nextSquares[i] = '🍌';
     } else {
-      console.log("loaf isNext O")
-      nextSquares[i] = 'O';
+      nextSquares[i] = '🍫';
     }
     handlePlay(nextSquares);
   }
@@ -36,10 +31,8 @@ function Board({xIsNext, squares, handlePlay}) { // takes these props
     winnerLetter = squares[winner[0]]
     status = 'Winner: ' + winnerLetter;
   } else {
-    status = 'Next player: ' + (xIsNext ? 'X' : 'O');
+    status = 'Next player: ' + (xIsNext ? '🍌' : '🍫');
   }
-
-  console.log(winner);
 
   // squares is the array of "x" and null?
   // winner is the array of square indices
@@ -55,35 +48,32 @@ function Board({xIsNext, squares, handlePlay}) { // takes these props
             return
           }
 
-          console.log("loaf index",index)
           if (winner.includes(index)) {
             return <Square winOutcome={true} value={squares[index]} handleClick={() => handleClick(index)} />
           } else {
             return <Square winOutcome={false} value={squares[index]} handleClick={() => handleClick(index)} />
           }
         })}
-      </div>
+      </div>  
       <div className="board-row">
           {squares.map((element, index) => {
           if(index < 3 || index > 5) {
             return
           }
 
-          console.log("loaf index",index)
           if (winner.includes(index)) {
             return <Square winOutcome={true} value={squares[index]} handleClick={() => handleClick(index)} />
           } else {
             return <Square winOutcome={false} value={squares[index]} handleClick={() => handleClick(index)} />
           }
         })}
-      </div>
+      </div>  
       <div className="board-row">
       {squares.map((element, index) => {
           if(index < 6 || index > 8) {
             return
           }
 
-          console.log("loaf index",index)
           if (winner.includes(index)) {
             return <Square winOutcome={true} value={squares[index]} handleClick={() => handleClick(index)} />
           } else {
@@ -114,19 +104,23 @@ export default function Game(){
   function check() {
     return history.length > currentMove ? true : false; 
   }
-  console.log(history.length, check(), currentMove + 2);
 
   return (
+    <>
     <div className="game">
-      <div className="game-board">
-        <Board xIsNext={xIsNext} squares={currentSquares} handlePlay={handlePlay}/>
-        <button onClick={() => jumpTo(0)}>Restart Game</button>
-      </div>
+        <div className="game-board">
+          <Board xIsNext={xIsNext} squares={currentSquares} handlePlay={handlePlay}/>
+        </div>
       <div className="game-info">
+      <button onClick={() => jumpTo(0)}>Restart Game</button> <br />
+      <div>
         <button disabled={0 < (currentMove) ? false : true} onClick={() => jumpTo(currentMove -1)}>Go Back</button>
-      <button disabled={history.length >= (currentMove + 2) ? false : true} onClick={() => jumpTo(currentMove + 1)}>Go Forward</button>
+        <button disabled={history.length >= (currentMove + 2) ? false : true} onClick={() => jumpTo(currentMove + 1)}>Go Forward</button>
       </div>
+  </div>
     </div>
+    
+  </>
   );
 }
 

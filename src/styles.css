@@ -6,6 +6,8 @@ body {
   font-family: sans-serif;
   margin: 20px;
   padding: 0;
+  background: #FCD0DA;
+  min-height: 100vh;
 }
 
 h1 {
@@ -60,15 +62,15 @@ body {
   background: #fff;
   border: 1px solid #999;
   float: left;
-  font-size: 24px;
+  font-size: 90px;
   font-weight: bold;
   line-height: 34px;
-  height: 34px;
+  height: 120px;
   margin-right: -1px;
   margin-top: -1px;
   padding: 0;
   text-align: center;
-  width: 34px;
+  width: 120px;
 }
 
 .board-row:after {
@@ -85,21 +87,44 @@ body {
   flex-direction: row;
 }
 
-.game-info {
+/* .game-info {
   margin-left: 20px;
-}
+} */
 
 .winsquare {
   background: #e6ffe6;
   border: 1px solid #999;
   float: left;
-  font-size: 24px;
+  font-size: 90px;
   font-weight: bold;
   line-height: 34px;
-  height: 34px;
+  height: 120px;
   margin-right: -1px;
   margin-top: -1px;
   padding: 0;
   text-align: center;
-  width: 34px;
+  width: 120px;
+}
+
+.game {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  flex-direction: column;
+}
+
+#gameboard-border {
+  border-width: 10px;
+  border-color: burlywood;
+  border-radius: 5px;
+}
+
+.game-info {
+  display: inherit;
+  flex-direction: row;
+}
+
+#movement-buttons {
+  padding: 10px;
 }
