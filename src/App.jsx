@@ -107,31 +107,24 @@ export default function Game(){
     setCurrentMove(nextHistory.length - 1);
   }
 
-  function jumpTo(nextMove) {
-     setCurrentMove(nextMove);
+  function jumpTo(desiredMove) {
+     setCurrentMove(desiredMove);
   }
 
-  const moves = history.map((squares, move) => {
-    let description;
-    if (move > 0) {
-      description = "Go to move #" + move;
-    } else {
-      description = "Go to move start";
-    }
-    return (
-      <li key={move}>
-        <button onClick={() => jumpTo(move)}> {description} </button>
-      </li>
-    );
-  });
+  function check() {
+    return history.length > currentMove ? true : false; 
+  }
+  console.log(history.length, check(), currentMove + 2);
 
   return (
     <div className="game">
       <div className="game-board">
         <Board xIsNext={xIsNext} squares={currentSquares} handlePlay={handlePlay}/>
+        <button onClick={() => jumpTo(0)}>Restart Game</button>
       </div>
       <div className="game-info">
-        <ol>{moves}</ol>
+        <button disabled={0 < (currentMove) ? false : true} onClick={() => jumpTo(currentMove -1)}>Go Back</button>
+      <button disabled={history.length >= (currentMove + 2) ? false : true} onClick={() => jumpTo(currentMove + 1)}>Go Forward</button>
       </div>
     </div>
   );
