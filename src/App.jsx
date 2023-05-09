@@ -116,21 +116,17 @@ export default function Game(){
           <button onClick={() => {
             setCurrentMove(0); 
             setHistory([Array(9).fill(null)])}
-          }>Restart Game</button> <br />
+          }>Restart Game</button>
           <button disabled={0 < (currentMove) ? false : true} onClick={() => jumpTo(currentMove -1)}>Go Back</button>
           <button disabled={history.length >= (currentMove + 2) ? false : true} onClick={() => jumpTo(currentMove + 1)}>Go Forward</button>
         </div>
         <div className="waffle"></div>
       </div>
-      {/* <div className="waffle-container">
-        <div className="waffle"></div>
-      </div> */}
     </>
   );
 }
 
 function calculateWinner(squares) {
-  let winnerInfo;
   const lines = [
     [0, 1, 2],
     [3, 4, 5],
@@ -148,9 +144,4 @@ function calculateWinner(squares) {
     }
   }
   return [];
-}
-
-function Waffle() {
-  <div className="waffle">
-  </div>
 }
