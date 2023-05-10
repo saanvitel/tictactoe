@@ -9,7 +9,7 @@ function Square({value, handleClick, winOutcome}) {
   );
 }
 
-function Board({xIsNext, squares, handlePlay}) { // takes these props
+function Board({xIsNext, squares, handlePlay, handleStatusChange}) { // takes these props
   // squares are how the board looks right now
   function handleClick(i) {
     if (calculateWinner(squares).length > 0 || squares[i]) {
@@ -33,6 +33,7 @@ function Board({xIsNext, squares, handlePlay}) { // takes these props
   } else {
     status = (xIsNext ? '🍓' : '🫐') + " TURN";
   }
+  handleStatusChange(status);
 
   // squares is the array of "x" and null?
   // winner is the array of square indices
@@ -41,7 +42,6 @@ function Board({xIsNext, squares, handlePlay}) { // takes these props
 
   return (
     <>
-      <h3 className="status">{status}</h3> <br />
       <div className="board-row">
         {squares.map((element, index) => {
           if(index > 2) {
@@ -90,6 +90,7 @@ export default function Game(){
   const [currentMove, setCurrentMove] = useState(0);
   const currentSquares = history[currentMove]; // calculates the current gameboard(squares) by reasing the last squares 
   const xIsNext = currentMove % 2 === 0;// tracks players next move assists in history creation
+  const [currentStatus, setCurrentStatus] = useState("");
 
   function handlePlay(nextSquares) {
     const nextHistory = [...history.slice(0, currentMove + 1), nextSquares];
@@ -108,10 +109,13 @@ export default function Game(){
   return (
     <>
       <div className="game">
-      <h1>🧇 waffle tictactoe 🧇</h1>
+        <h1>🧇 waffle tictactoe 🧇</h1>
+        <h3 className="status">{currentStatus}</h3>
+        <div className="waffle">
           <div className="game-board">
-            <Board xIsNext={xIsNext} squares={currentSquares} handlePlay={handlePlay}/>
+            <Board xIsNext={xIsNext} squares={currentSquares} handlePlay={handlePlay} handleStatusChange={setCurrentStatus} />
           </div>
+        </div>
         <div className="game-info">
           <button onClick={() => {
             setCurrentMove(0); 
@@ -120,7 +124,7 @@ export default function Game(){
           <button disabled={0 < (currentMove) ? false : true} onClick={() => jumpTo(currentMove -1)}>Go Back</button>
           <button disabled={history.length >= (currentMove + 2) ? false : true} onClick={() => jumpTo(currentMove + 1)}>Go Forward</button>
         </div>
-        <div className="waffle"></div>
+        
       </div>
     </>
   );

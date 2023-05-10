@@ -12,7 +12,6 @@ body {
 
 h1 {
   font-size: 50px;
-  position: absolute;
   bottom: 620px;
 }
 
@@ -21,6 +20,14 @@ h3 {
   font-size: 18px;
 }
 
+button {
+  margin-right: 20px;
+  margin-top: 10px;
+  width: 100px;
+  height: 40px;
+  background: #ece6ff;
+  border-radius: 10px;
+}
 
 .square {
   background: #f3d9b3;
@@ -35,7 +42,7 @@ h3 {
 
 .status {
  text-align: center;
- margin-bottom: 10px;
+ margin-bottom: -10px;
 }
 
 .game {
@@ -79,30 +86,15 @@ h3 {
   width: 400px;
   height: 400px;
   background: #f3d9b3;
-  top: 220px;
-  position: absolute;
   border-radius: 15px;
   border: 1px solid #e7b56a;
-}
-
-.waffle-container {
   display: flex;
   justify-content: center;
   align-items: center;
-  height: 100vh;
 }
 
 .game-board{
   z-index: 1;
   margin: 10px;
-  border-radius: 10px;
-}
-
-button {
-  margin-right: 20px;
-  margin-top: 10px;
-  width: 100px;
-  height: 40px;
-  background: #ece6ff;
   border-radius: 10px;
 }
