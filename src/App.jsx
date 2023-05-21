@@ -1,6 +1,6 @@
-import { useState } from 'react';
+import { useState } from "react";
 
-function Square({value, handleClick, winOutcome}) {
+function Square({ value, handleClick, winOutcome }) {
   const squareClass = winOutcome ? "winsquare" : "square";
   return (
     <button className={squareClass} onClick={handleClick}>
@@ -9,7 +9,8 @@ function Square({value, handleClick, winOutcome}) {
   );
 }
 
-function Board({xIsNext, squares, handlePlay, handleStatusChange}) { // takes these props
+function Board({ xIsNext, squares, handlePlay, handleStatusChange }) {
+  // takes these props
   // squares are how the board looks right now
   function handleClick(i) {
     if (calculateWinner(squares).length > 0 || squares[i]) {
@@ -17,67 +18,101 @@ function Board({xIsNext, squares, handlePlay, handleStatusChange}) { // takes th
     }
     const nextSquares = squares.slice();
     if (xIsNext) {
-      nextSquares[i] = '🍓';
+      nextSquares[i] = "🍓";
     } else {
-      nextSquares[i] = '🫐';
+      nextSquares[i] = "🫐";
     }
     handlePlay(nextSquares);
   }
 
-  const winner = calculateWinner(squares);// calculate winner squares sees if function has returned -> game is done
+  const winner = calculateWinner(squares); // calculate winner squares sees if function has returned -> game is done
   let status;
   if (winner.length > 0) {
     let winnerLetter;
-    winnerLetter = squares[winner[0]]
-    status = 'Winner: ' + winnerLetter;
+    winnerLetter = squares[winner[0]];
+    status = "Winner: " + winnerLetter;
   } else {
-    status = (xIsNext ? '🍓' : '🫐') + " TURN";
+    status = (xIsNext ? "🍓" : "🫐") + " TURN";
   }
   handleStatusChange(status);
 
   // squares is the array of "x" and null?
   // winner is the array of square indices
 
-
-
   return (
     <>
       <div className="board-row">
         {squares.map((element, index) => {
-          if(index > 2) {
-            return
+          if (index > 2) {
+            return;
           }
 
           if (winner.includes(index)) {
-            return <Square winOutcome={true} value={squares[index]} handleClick={() => handleClick(index)} />
+            return (
+              <Square
+                winOutcome={true}
+                value={squares[index]}
+                handleClick={() => handleClick(index)}
+              />
+            );
           } else {
-            return <Square winOutcome={false} value={squares[index]} handleClick={() => handleClick(index)} />
+            return (
+              <Square
+                winOutcome={false}
+                value={squares[index]}
+                handleClick={() => handleClick(index)}
+              />
+            );
           }
         })}
-      </div>  
+      </div>
       <div className="board-row">
-          {squares.map((element, index) => {
-          if(index < 3 || index > 5) {
-            return
+        {squares.map((element, index) => {
+          if (index < 3 || index > 5) {
+            return;
           }
 
           if (winner.includes(index)) {
-            return <Square winOutcome={true} value={squares[index]} handleClick={() => handleClick(index)} />
+            return (
+              <Square
+                winOutcome={true}
+                value={squares[index]}
+                handleClick={() => handleClick(index)}
+              />
+            );
           } else {
-            return <Square winOutcome={false} value={squares[index]} handleClick={() => handleClick(index)} />
+            return (
+              <Square
+                winOutcome={false}
+                value={squares[index]}
+                handleClick={() => handleClick(index)}
+              />
+            );
           }
         })}
-      </div>  
+      </div>
       <div className="board-row">
-      {squares.map((element, index) => {
-          if(index < 6 || index > 8) {
-            return
+        {squares.map((element, index) => {
+          if (index < 6 || index > 8) {
+            return;
           }
 
           if (winner.includes(index)) {
-            return <Square winOutcome={true} value={squares[index]} handleClick={() => handleClick(index)} />
+            return (
+              <Square
+                winOutcome={true}
+                value={squares[index]}
+                handleClick={() => handleClick(index)}
+              />
+            );
           } else {
-            return <Square winOutcome={false} value={squares[index]} handleClick={() => handleClick(index)} />
+            return (
+              <Square
+                winOutcome={false}
+                value={squares[index]}
+                handleClick={() => handleClick(index)}
+              />
+            );
           }
         })}
       </div>
@@ -85,11 +120,11 @@ function Board({xIsNext, squares, handlePlay, handleStatusChange}) { // takes th
   );
 }
 
-export default function Game(){
-  const [history, setHistory] = useState([Array(9).fill(null)]) //creates another array filled with nulls that will tract history
+export default function Game() {
+  const [history, setHistory] = useState([Array(9).fill(null)]); //creates another array filled with nulls that will tract history
   const [currentMove, setCurrentMove] = useState(0);
-  const currentSquares = history[currentMove]; // calculates the current gameboard(squares) by reasing the last squares 
-  const xIsNext = currentMove % 2 === 0;// tracks players next move assists in history creation
+  const currentSquares = history[currentMove]; // calculates the current gameboard(squares) by reasing the last squares
+  const xIsNext = currentMove % 2 === 0; // tracks players next move assists in history creation
   const [currentStatus, setCurrentStatus] = useState("");
 
   function handlePlay(nextSquares) {
@@ -99,11 +134,11 @@ export default function Game(){
   }
 
   function jumpTo(desiredMove) {
-     setCurrentMove(desiredMove);
+    setCurrentMove(desiredMove);
   }
 
   function check() {
-    return history.length > currentMove ? true : false; 
+    return history.length > currentMove ? true : false;
   }
 
   return (
@@ -113,18 +148,36 @@ export default function Game(){
         <h3 className="status">{currentStatus}</h3>
         <div className="waffle">
           <div className="game-board">
-            <Board xIsNext={xIsNext} squares={currentSquares} handlePlay={handlePlay} handleStatusChange={setCurrentStatus} />
+            <Board
+              xIsNext={xIsNext}
+              squares={currentSquares}
+              handlePlay={handlePlay}
+              handleStatusChange={setCurrentStatus}
+            />
           </div>
         </div>
         <div className="game-info">
-          <button onClick={() => {
-            setCurrentMove(0); 
-            setHistory([Array(9).fill(null)])}
-          }>Restart Game</button>
-          <button disabled={0 < (currentMove) ? false : true} onClick={() => jumpTo(currentMove -1)}>Go Back</button>
-          <button disabled={history.length >= (currentMove + 2) ? false : true} onClick={() => jumpTo(currentMove + 1)}>Go Forward</button>
+          <button
+            onClick={() => {
+              setCurrentMove(0);
+              setHistory([Array(9).fill(null)]);
+            }}
+          >
+            Restart Game
+          </button>
+          <button
+            disabled={0 < currentMove ? false : true}
+            onClick={() => jumpTo(currentMove - 1)}
+          >
+            Go Back
+          </button>
+          <button
+            disabled={history.length >= currentMove + 2 ? false : true}
+            onClick={() => jumpTo(currentMove + 1)}
+          >
+            Go Forward
+          </button>
         </div>
-        
       </div>
     </>
   );
